@@ -116,11 +116,6 @@ function Overview() {
       explicit <em>interval</em> object <IC color={IV}>𝕀</IC> and computable path types,
       giving a computational interpretation of Univalence and function extensionality.
     </P>
-    <P>
-      Unlike proof assistants based on OTT or HoTT axioms, Octo&apos;s equalities are
-      fully <em>computational</em> — transport, hcomp, and ua all reduce to normal forms
-      at the kernel level.
-    </P>
 
     <H2>Core features</H2>
     <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:24}}>
