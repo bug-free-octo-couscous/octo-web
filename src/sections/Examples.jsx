@@ -1,6 +1,7 @@
 import { ACC, BD, IV, KW, MU, SURF, TX, TY, WARN, mono } from '../theme.js';
 import { H1, P, Pill } from '../components/UI.jsx';
 import { Code } from '../components/Code.jsx';
+import { useResponsive } from '../hooks/useResponsive.js';
 
 const TAG_COLORS = { basic: ACC, paths: IV, sigma: TY, univalence: WARN, equiv: KW };
 
@@ -100,6 +101,8 @@ check swap_invol :
 ];
 
 export function Examples() {
+  const { isMobile } = useResponsive();
+
   return <>
     <H1>Examples</H1>
     <P>
@@ -114,9 +117,13 @@ export function Examples() {
     {EXAMPLES.map(({ title, tag, code, desc }) => (
       <div key={title} style={{
         background: SURF, border: `1px solid ${BD}`,
-        borderRadius: 10, padding: '16px 20px', marginBottom: 20,
+        borderRadius: 10, padding: isMobile ? '14px 14px' : '16px 20px',
+        marginBottom: 20,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8,
+          flexWrap: 'wrap',
+        }}>
           <span style={{ fontFamily: mono, fontSize: 15, color: TX }}>{title}</span>
           <Pill color={TAG_COLORS[tag] || ACC}>{tag}</Pill>
         </div>

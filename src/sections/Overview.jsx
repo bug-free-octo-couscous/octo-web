@@ -1,7 +1,10 @@
 import { ACC, BD, IV, KW, MU, SURF, TX } from '../theme.js';
 import { H1, H2, IC, P, Row } from '../components/UI.jsx';
+import { useResponsive } from '../hooks/useResponsive.js';
 
 export function Overview() {
+  const { isMobile } = useResponsive();
+
   const features = [
     ['Π / Σ types',      'Dependent functions and pairs with full η-equality'],
     ['Path types',       'Cubical equality  Path A u v  with endpoints'],
@@ -32,7 +35,12 @@ export function Overview() {
     </P>
 
     <H2>Core features</H2>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: 12,
+      marginBottom: 24,
+    }}>
       {features.map(([title, desc]) => (
         <div key={title} style={{
           background: SURF, border: `1px solid ${BD}`, borderRadius: 8, padding: '14px 16px',

@@ -16,7 +16,8 @@ export function Sidebar({ active, onSelect }) {
     <nav style={{
       width: 220, flexShrink: 0, background: SURF,
       borderRight: `1px solid ${BD}`, padding: '28px 0',
-      position: 'sticky', top: 0, height: '100vh', overflowY: 'auto',
+      height: '100vh', overflowY: 'auto',
+      display: 'flex', flexDirection: 'column',
     }}>
       {/* Logo */}
       <div style={{ padding: '0 20px 24px', borderBottom: `1px solid ${BD}` }}>
@@ -29,7 +30,7 @@ export function Sidebar({ active, onSelect }) {
       </div>
 
       {/* Nav items */}
-      <ul style={{ listStyle: 'none', margin: '16px 0 0', padding: 0 }}>
+      <ul style={{ listStyle: 'none', margin: '16px 0 0', padding: 0, flex: 1 }}>
         {NAV_ITEMS.map(({ id, label, glyph }) => {
           const isActive = id === active;
           return (
@@ -37,8 +38,8 @@ export function Sidebar({ active, onSelect }) {
               <button
                 onClick={() => onSelect(id)}
                 style={{
-                  width: '100%', textAlign: 'left', background: 'none',
-                  border: 'none', cursor: 'pointer', padding: '10px 20px',
+                  width: '100%', textAlign: 'left', background: isActive ? ACC + '12' : 'none',
+                  border: 'none', cursor: 'pointer', padding: '11px 20px',
                   display: 'flex', alignItems: 'center', gap: 10,
                   color: isActive ? ACC : MU,
                   borderLeft: isActive ? `2px solid ${ACC}` : '2px solid transparent',
@@ -48,7 +49,7 @@ export function Sidebar({ active, onSelect }) {
                 onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = TX; }}
                 onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = MU; }}
               >
-                <span style={{ fontSize: 14, opacity: 0.8 }}>{glyph}</span>
+                <span style={{ fontSize: 14, opacity: 0.8, minWidth: 16 }}>{glyph}</span>
                 {label}
               </button>
             </li>
@@ -58,8 +59,9 @@ export function Sidebar({ active, onSelect }) {
 
       {/* Footer */}
       <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        padding: '16px 20px', borderTop: `1px solid ${BD}`,
+        padding: '16px 20px',
+        borderTop: `1px solid ${BD}`,
+        marginTop: 'auto',
       }}>
         <div style={{ fontSize: 11, color: CM, lineHeight: 1.6 }}>
           <div style={{ color: MU, marginBottom: 2 }}>octo v0.1.0</div>

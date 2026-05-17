@@ -1,11 +1,12 @@
 import { ACC, BD, CM, MU, SURF2, TX, TY, WARN, mono, serif } from '../theme.js';
+import { useResponsive } from '../hooks/useResponsive.js';
 
 // ── Typography ──────────────────────────────────────────────────────────────
 
 export function H1({ children }) {
   return (
     <h1 style={{
-      fontFamily: serif, fontSize: 30, fontWeight: 400, color: TX,
+      fontFamily: serif, fontSize: 'clamp(22px, 4vw, 30px)', fontWeight: 400, color: TX,
       borderBottom: `2px solid ${ACC}`, paddingBottom: 12,
       marginBottom: 28, marginTop: 0, letterSpacing: '-0.3px',
     }}>
@@ -17,7 +18,7 @@ export function H1({ children }) {
 export function H2({ children }) {
   return (
     <h2 style={{
-      fontFamily: serif, fontSize: 20, fontWeight: 400, color: ACC,
+      fontFamily: serif, fontSize: 'clamp(17px, 3vw, 20px)', fontWeight: 400, color: ACC,
       marginTop: 36, marginBottom: 14, letterSpacing: '-0.2px',
     }}>
       {children}
@@ -40,6 +41,7 @@ export function IC({ children, color = ACC }) {
     <code style={{
       background: SURF2, border: `1px solid ${BD}`, borderRadius: 4,
       padding: '1px 6px', fontFamily: mono, fontSize: '0.85em', color,
+      wordBreak: 'break-word',
     }}>
       {children}
     </code>
@@ -74,12 +76,23 @@ export function Note({ children, kind = 'info' }) {
 }
 
 export function Row({ left, right, lc = TX }) {
+  const { isMobile } = useResponsive();
   return (
     <div style={{
-      display: 'grid', gridTemplateColumns: '200px 1fr',
-      gap: '0 20px', padding: '8px 0', borderBottom: `1px solid ${BD}`,
+      display: isMobile ? 'block' : 'grid',
+      gridTemplateColumns: isMobile ? undefined : '200px 1fr',
+      gap: isMobile ? '2px 0' : '0 20px',
+      padding: isMobile ? '10px 0' : '8px 0',
+      borderBottom: `1px solid ${BD}`,
     }}>
-      <code style={{ fontFamily: mono, fontSize: 13, color: lc }}>{left}</code>
+      <code style={{
+        fontFamily: mono, fontSize: 13, color: lc,
+        display: 'block',
+        marginBottom: isMobile ? 3 : 0,
+        wordBreak: 'break-all',
+      }}>
+        {left}
+      </code>
       <span style={{ color: MU, fontSize: 13.5, lineHeight: 1.7 }}>{right}</span>
     </div>
   );
